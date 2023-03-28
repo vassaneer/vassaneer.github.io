@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="src/css/style.css">
+<link rel="stylesheet" href="src/css/bubble.css">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 </head>
 <body>
@@ -8,15 +10,41 @@
 <div class="wrap">
 <div class="box">
 <main class="item">
-<form action="src/name_get.php">
  <div class="fillName">กรุณากรอกชื่อ (เรามีไรจะบอกเธอด้วยแหละ)</div>
  <div class="inputBox"><input type="text" id="name" name="name" required></div>
- <input type="hidden" id="goback" name="goback" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
- <input type="submit" value="ยืนยัน" class="button">
+ <div id="parent"></div>
+ <button onclick="myFunc()" class="button">ยืนยัน</button>
 </main>
-</form>
 </div>
 </div>
 <div class="footer"></div>
+<script>
+function myFunc() {
+  parent = document.getElementById("parent")
+  while (parent.hasChildNodes()) {
+  	parent.removeChild(parent.firstChild);
+   }
+  name = document.getElementById('name').value
+  str=[]
+  if (name=="พี่เป้") {
+      str= ["เป็นคนดีย์", "คนเก่ง", "คนซื่อสัตย์", "คนขี้เกรงใจ", "คนรู้ทัน"]
+  }else if (name=="น้องเจ") {
+     str= ["เป็นคนซุ่มซ่าม เอ่ย คนโก๊ะๆ","จี้เก่ง เซ็นท์ดีจริงๆ", "แม่สาวไอติม ดีนะ ไม่ใด้ให้ยาคูล", "เป็นเศรษฐีแน่ๆ เปย์ข้าวหนุ่มๆเก่ง","มีหนุ่มๆจะไปหา ก็ไม่ออกมาเจอ","หัวหัวหอมอยากได้น้องเพิ่มไหมจ๊ะ"]
+  }
+  let label = document.createElement("div")
+  label.setAttribute("class", "bubble")
+  for(let i=0; i<str.length;i++){
+ 	  let unordered_list = document.createElement("div")
+	  unordered_list.setAttribute("class", "bubble")
+	  let li_elem =  document.createElement("div")
+	  li_elem.setAttribute("class", "bubble-content")
+	  li_elem.textContent = str[i]
+  	  unordered_list .appendChild(li_elem)
+  	  label.appendChild(unordered_list)
+ }
+  parent.appendChild(label)
+  document.getElementById('name').value=''
+}
+</script>
 </body>
 </html>
